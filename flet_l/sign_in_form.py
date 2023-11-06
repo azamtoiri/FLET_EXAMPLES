@@ -8,7 +8,7 @@ PRIMARY = ft.colors.TEAL
 fm.Theme.set_theme(theme=PRIMARY)
 
 # user login and password
-dummy_user_list: list = [["dummy@gmail.com"], 121212]
+dummy_user_list: list = [["dummy@gmail.com", 12341234]]
 
 
 class CustomInputField(ft.UserControl):
@@ -127,7 +127,29 @@ class MainFormUI(ft.UserControl):
     def __init__(self):
         self.email = CustomInputField(False, "Email")
         self.password = CustomInputField(True, "Password")
+
+        self.submit = fm.Buttons(
+            width=400,
+            height=45,
+            title="Submit",
+            on_click=lambda e: asyncio.run(self.validate_entries(e))
+        )
         super().__init__()
+
+    async def validate_entries(self, e):
+        email_value = self.email.input.value
+        password_value = self.password.input.value
+
+        for user, password in dummy_user_list:
+            print("1")
+            # await self.email.set_ok()
+            # await self.password.set_ok()
+            if email_value == user and password_value == str(password):
+                await asyncio.sleep(0.5)
+                await self.email.set_ok()
+                await asyncio.sleep(1)
+                await self.password.set_ok()
+                self.update()
 
     def build(self):
         return ft.Container(
@@ -150,6 +172,7 @@ class MainFormUI(ft.UserControl):
                     ft.Divider(height=5, color=ft.colors.TRANSPARENT),
                     self.password,
                     ft.Divider(height=25, color=ft.colors.TRANSPARENT),
+                    self.submit,
                 ],
             ),
         )
@@ -165,6 +188,8 @@ def main(page: ft.Page):
     page.add(form)
     page.update()
 
+
+# TODO: Notification for incorrect password or email
 
 if __name__ == '__main__':
     ft.app(target=main)
