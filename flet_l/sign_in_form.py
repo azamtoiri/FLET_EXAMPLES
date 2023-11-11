@@ -26,9 +26,9 @@ class CustomInputField(ft.UserControl):
             # bgcolor as per the theme
             bgcolor=fm.Theme.bgcolor,
             password=password,
-            on_focus=lambda e: self.focus_shadow(e),
-            on_blur=lambda e: self.blur_shadow(e),
-            on_change=lambda e: self.set_loader_animation(e),
+            on_focus=self.focus_shadow,
+            on_blur=self.blur_shadow,
+            on_change=self.set_loader_animation,
         )
 
         self.input_box: ft.Container = ft.Container(
