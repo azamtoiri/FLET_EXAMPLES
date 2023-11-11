@@ -58,20 +58,6 @@ class CustomInputField(ft.UserControl):
             opacity=0,
         )
 
-        self.fail_status: fm.CheckBox = fm.CheckBox(
-            shape="circle",
-            value=False,
-            disabled=True,
-            offset=ft.Offset(1, 0),
-            bottom=0,
-            right=1,
-            top=1,
-            animate_opacity=ft.Animation(200, ft.animation.AnimationCurve.LINEAR),
-            animate_offset=ft.Animation(300, ft.animation.AnimationCurve.EASE),
-            opacity=0,
-            bgcolor=ft.colors.RED,
-        )
-
         self.object = self.create_input(title)
 
         super().__init__()
@@ -95,14 +81,8 @@ class CustomInputField(ft.UserControl):
 
         self.input.border_color = ft.colors.with_opacity(0.5, 'red')
 
-        self.fail_status.offset = ft.Offset(-0.5, 0)
-        self.fail_status.opacity = 1
         self.update()
         await asyncio.sleep(1)
-
-        self.fail_status.content.value = False
-        self.fail_status.animate_checkbox(e=None)
-        self.fail_status.update()
 
     def set_loader_animation(self, e):
         # function starts the loader if the text field lengths ore not 0
@@ -141,7 +121,6 @@ class CustomInputField(ft.UserControl):
                     controls=[
                         self.input_box,
                         self.status,
-                        self.fail_status,
                     ],
                 ),
                 self.loader,
