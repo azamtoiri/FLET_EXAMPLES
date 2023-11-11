@@ -95,7 +95,7 @@ class CustomInputField(ft.UserControl):
         self.loader.value = 0
         self.loader.update()
 
-        self.status.offset = ft.Offset(-0.5, 0)
+        self.status.offset = ft.Offset(-15, 0)
         self.status.opacity = 1
         self.update()
         await asyncio.sleep(1)
@@ -125,14 +125,8 @@ class CustomInputField(ft.UserControl):
 
     def focus_shadow(self, e):
         """Focus shadow when focusing"""
-        y = self.error in self.login_box.controls
-        if y:
-            self.login_box.controls.remove(self.error)
-            self.input_box.bgcolor = 'white'
-            self.input_box.border = None
-            self.input.update()
-            self.login_box.update()
-
+        self.error.visible = False
+        self.update()
         self.input.border_color = PRIMARY
         self.input_box.shadow = ft.BoxShadow(
             spread_radius=6,
@@ -160,10 +154,10 @@ class CustomInputField(ft.UserControl):
                     controls=[
                         self.input_box,
                         self.status,
-                        self.error,
                     ],
                 ),
                 self.loader,
+                self.error,
             ],
         )
 
@@ -189,6 +183,7 @@ class MainFormUI(ft.UserControl):
         )
         super().__init__()
 
+    # validating login and password
     async def validate_entries(self, e):
         if self.email.input.value is None:
             e.control.page.snack_bar = ft.SnackBar(ft.Text('Hello'))
@@ -200,10 +195,10 @@ class MainFormUI(ft.UserControl):
 
         for user, password in dummy_user_list:
             if email_value == user and password_value == str(password):
-                await asyncio.sleep(0.5)
+                # await asyncio.sleep(0.5)
                 await self.email.set_ok()
-                await asyncio.sleep(1)
                 await self.password.set_ok()
+                # await asyncio.sleep(1)
                 self.update()
             else:
                 await self.email.set_fail()
@@ -250,8 +245,6 @@ def main(page: ft.Page):
     page.add(form)
     page.update()
 
-
-# TODO: Notification for incorrect password or email
 
 if __name__ == '__main__':
     ft.app(target=main)

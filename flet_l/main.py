@@ -1,15 +1,6 @@
 import flet as ft
 
 
-def box_style(theme: ft.Page.theme_mode) -> dict:
-    return {
-        "width": 100,
-        "height": 100,
-        "bgcolor": "teal" if theme == "dark" else "pink",
-        "border_radius": 10,
-    }
-
-
 def main(page: ft.Page):
     page.title = "Containers with background color"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -17,35 +8,22 @@ def main(page: ft.Page):
 
     page.theme_mode = ft.ThemeMode.DARK
 
-    c1 = ft.Container(
-        content=ft.ElevatedButton("Elevated button in cont"),
-        bgcolor=ft.colors.YELLOW,
-        padding=5,
+    c = ft.Container(
+        width=200,
+        height=200,
+        bgcolor="red",
+        animate=ft.animation.Animation(1000, "bounceOut"),
+
     )
 
-    c2 = ft.Container(
-        content=ft.ElevatedButton("Elevated button in cont, opacity 0.5"),
-        bgcolor=ft.colors.BLUE,
-        padding=5,
-        opacity=0.5,
-    )
+    def animate_container(e):
+        c.width = 100 if c.width == 200 else 200
+        c.height = 100 if c.height == 200 else 200
+        c.bgcolor = "blue" if c.bgcolor == "red" else "red"
+        c.update()
 
-    c3 = ft.Container(
-        content=ft.OutlinedButton("Outlined button in container"),
-        bgcolor=ft.colors.TEAL,
-        padding=5,
-    )
+    page.add(c, ft.ElevatedButton("Animate container", on_click=animate_container))
 
-    page.add(
-        c1, c2, c3,
-        ft.Container(
-            width=100,
-            height=100,
-            bgcolor="teal",
-            border_radius=6
-        ),
-        ft.Container(**box_style(page.theme_mode))
-    )
     page.update()
 
 
