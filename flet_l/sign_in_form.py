@@ -161,7 +161,7 @@ class CustomInputField(ft.UserControl):
 # Mian form class: stores the major instances
 class MainFormUI(ft.UserControl):
     def __init__(self):
-        self.email = CustomInputField(False, "Email or Login ")
+        self.email = CustomInputField(False, "Email or Login")
         self.password = CustomInputField(True, "Password")
 
         # create crutch for show and hide password
