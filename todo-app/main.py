@@ -12,18 +12,14 @@ def main(page: Page):
     page.vertical_alignment = MainAxisAlignment.CENTER
     page.horizontal_alignment = CrossAxisAlignment.CENTER
 
-    def route_change(route):
-        page.views.clear()
-        page.views.append(
-            View(
-                "/",
-                [
-                    container_
-                ],
-            ),
+    create_task_view = Container(
+        content=Container(
+            height=40, width=40,
+            content=Text('x'),
+            on_click=lambda _: page.go('/'),
+            # bgcolor=FG,
         )
-
-    create_task_view = Container()
+    )
 
     tasks = Column()
 
@@ -88,7 +84,7 @@ def main(page: Page):
                         tasks,
                         FloatingActionButton(
                             icon=icons.ADD,
-                            on_click=page.go('/create_task')
+                            on_click=lambda _: page.go('/create_task')
                         )
                     ]
                 )
@@ -129,6 +125,28 @@ def main(page: Page):
             ]
         )
     )
+
+    pages = {
+        "/": View(
+            "/",
+            [
+                container_
+            ],
+        ),
+        "/create_task": View(
+            "/create_task",
+            [
+                create_task_view
+            ]
+        )
+    }
+
+    def route_change(route):
+        # pass
+        page.views.clear()
+        page.views.append(
+            pages[page.route]
+        )
 
     page.add(container_)
 
