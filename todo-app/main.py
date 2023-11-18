@@ -21,7 +21,15 @@ def main(page: Page):
         )
     )
 
-    tasks = Column()
+    tasks = Column(
+        height=400,
+        scroll=ScrollMode.AUTO,
+    )
+
+    for i in range(10):
+        tasks.controls.append(
+            Container(height=70, width=400, bgcolor=BG, border_radius=25),
+        )
 
     # card categories which we see
     categories_card = Row(
@@ -83,6 +91,7 @@ def main(page: Page):
                     controls=[
                         tasks,
                         FloatingActionButton(
+                            bottom=2, right=20,
                             icon=icons.ADD,
                             on_click=lambda _: page.go('/create_task')
                         )
