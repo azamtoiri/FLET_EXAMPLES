@@ -1,4 +1,5 @@
 from flet import *
+
 from custom_checkbox import CustomCheckBox
 
 BG = "#041955"
@@ -13,12 +14,75 @@ def main(page: Page):
     page.vertical_alignment = MainAxisAlignment.CENTER
     page.horizontal_alignment = CrossAxisAlignment.CENTER
 
+    circle = Stack(
+        controls=[
+            Container(
+                width=100,
+                height=100,
+                border_radius=50,
+                bgcolor=colors.WHITE12
+            ),
+            Container(
+                gradient=SweepGradient(
+                    center=alignment.center,
+                    start_angle=0.0,
+                    end_angle=3,
+                    stops=[0.5, 0.5],
+                    colors=['#0000000000', PINK]
+                ),
+                width=100,
+                height=100,
+                border_radius=50,
+                content=Row(
+                    alignment=alignment.center,
+                    controls=[
+                        Container(
+                            padding=padding.all(5),
+                            bgcolor=BG,
+                            width=90, height=90,
+                            border_radius=50,
+                            content=Container(
+                                bgcolor=FG,
+                                height=80, width=80,
+                                border_radius=40,
+                                content=CircleAvatar(
+                                    opacity=0.8,
+                                    foreground_image_url="https://images.unsplash.com/photo-1545912452-8aea7e25a3d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                                )
+                            )
+                        )
+                    ]
+                )
+            )
+        ]
+    )
+
+    def shrink(e):
+        page_2.controls[0].width = 120
+        page_2.controls[0].scale = transform.Scale(
+            0.8, alignment=alignment.center_right
+        )
+        page_2.controls[0].border_radius = border_radius.only(
+            top_left=35,
+            top_right=0,
+            bottom_left=35,
+            bottom_right=0
+        )
+        page_2.update()
+
+    def restore(e):
+        page_2.controls[0].width = 400
+        page_2.controls[0].border_radius = 35
+        page_2.controls[0].scale = transform.Scale(
+            1, alignment=alignment.center_right
+        )
+        page_2.update()
+
     create_task_view = Container(
         content=Container(
             height=40, width=40,
-            content=Text('x'),
+            content=Text('X', width=50, height=50),
             on_click=lambda _: page.go('/'),
-            # bgcolor=FG,
         )
     )
 
@@ -83,7 +147,7 @@ def main(page: Page):
                 Row(
                     alignment='spaceBetween',
                     controls=[
-                        Container(content=Icon(icons.MENU)),
+                        Container(content=Icon(icons.MENU), on_click=lambda e: shrink(e)),
                         Row(controls=[
                             Icon(icons.SEARCH),
                             Icon(icons.NOTIFICATIONS_OUTLINED)
@@ -113,28 +177,58 @@ def main(page: Page):
         )
     )
 
-    page_1 = Container()
-    page_2 = Row(
-        controls=[
-            Container(
-                width=400,
-                height=850,
-                bgcolor=FG,
-                border_radius=35,
-                animate=animation.Animation(600, AnimationCurve.DECELERATE),
-                animate_scale=animation.Animation(400, AnimationCurve.DECELERATE),
-                padding=padding.only(
-                    top=50, left=20,
-                    right=20, bottom=5,
-                ),
-                content=Column(
+    page_1 = Container(
+        width=400,
+        height=850,
+        bgcolor=BG,
+        border_radius=35,
+        padding=padding.only(left=50, top=60, right=200),
+
+        content=Column(
+            controls=[
+                Row(
+                    alignment='end',
                     controls=[
-                        first_page_contents,
+                        Container(
+                            border_radius=25,
+                            padding=padding.only(
+                                top=13, left=13,
+                            ),
+                            height=50,
+                            width=50,
+                            border=border.all(color='white', width=2),
+                            on_click=lambda e: restore(e),
+                            content=Text('<'),
+                        )
                     ]
-                )
-            )
-        ]
+                ),
+                Container(height=20),
+                Text('Olivia\nMitchel', size=32, weight='bold'),
+                circle,
+            ]
+        )
     )
+    page_2 = Row(alignment='end',
+                 controls=[
+                     Container(
+                         width=400,
+                         height=850,
+                         bgcolor=FG,
+                         border_radius=35,
+                         animate=animation.Animation(600, AnimationCurve.DECELERATE),
+                         animate_scale=animation.Animation(400, curve='decelerate'),
+                         padding=padding.only(
+                             top=50, left=20,
+                             right=20, bottom=5
+                         ),
+                         content=Column(
+                             controls=[
+                                 first_page_contents
+                             ]
+                         )
+                     )
+                 ]
+                 )
 
     container_ = Container(
         width=400,
@@ -169,7 +263,6 @@ def main(page: Page):
         page.views.append(
             pages[page.route]
         )
-
 
     page.on_route_change = route_change
     page.go(page.route)
