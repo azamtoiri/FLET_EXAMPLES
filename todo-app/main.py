@@ -1,4 +1,5 @@
 from flet import *
+from custom_checkbox import CustomCheckBox
 
 BG = "#041955"
 FWG = '#94b4ff'
@@ -28,7 +29,18 @@ def main(page: Page):
 
     for i in range(10):
         tasks.controls.append(
-            Container(height=70, width=400, bgcolor=BG, border_radius=25),
+            Container(
+                height=70,
+                width=400,
+                bgcolor=BG,
+                padding=padding.only(top=25, left=20),
+                border_radius=25,
+                content=CustomCheckBox(
+                    PINK,
+                    label='Add somthing interesting',
+                    size=30,
+                ),
+            ),
         )
 
     # card categories which we see
@@ -109,6 +121,8 @@ def main(page: Page):
                 height=850,
                 bgcolor=FG,
                 border_radius=35,
+                animate=animation.Animation(600, AnimationCurve.DECELERATE),
+                animate_scale=animation.Animation(400, AnimationCurve.DECELERATE),
                 padding=padding.only(
                     top=50, left=20,
                     right=20, bottom=5,
@@ -151,13 +165,11 @@ def main(page: Page):
     }
 
     def route_change(route):
-        # pass
         page.views.clear()
         page.views.append(
             pages[page.route]
         )
 
-    page.add(container_)
 
     page.on_route_change = route_change
     page.go(page.route)
