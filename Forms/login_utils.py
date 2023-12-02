@@ -142,7 +142,7 @@ class LoginWithCaptcha(ft.Column):
                                                         color=ft.colors.WHITE,
                                                         bgcolor=ft.colors.BLUE_700,
                                                         style=ft.ButtonStyle(
-                                                            shape=ft.CountinuosRectangleBorder(radius=20),
+                                                            shape=ft.ContinuousRectangleBorder(radius=20),
                                                         ),
                                                         on_click=self.handle_login
                                                     )
