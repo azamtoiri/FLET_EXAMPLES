@@ -34,7 +34,7 @@ def main(page: Page):
                 height=100,
                 border_radius=50,
                 content=Row(
-                    alignment=alignment.center,
+                    alignment='center',
                     controls=[
                         Container(
                             padding=padding.all(5),
