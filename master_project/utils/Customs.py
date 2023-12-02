@@ -2,15 +2,12 @@ import flet as ft
 import flet_material as fm
 import asyncio
 
-PRIMARY = ft.colors.TEAL
-
+PRIMARY = ft.colors.SURFACE_VARIANT
+BORDER_COLOR = ft.colors.GREY
+BG_COLOR = ft.colors.WHITE
 
 class CustomInputField(ft.UserControl):
     def __init__(self, password: bool, title: str):
-        self.view_hide_text = ft.Text(
-            value="View",
-        )
-
         self.error = ft.Text(
             value='Incorrect login or password',
             color=ft.colors.RED_300,
@@ -21,25 +18,23 @@ class CustomInputField(ft.UserControl):
             expand=True,
             content=ft.TextField(
                 hint_text=title,
+                hint_style=ft.TextStyle(color=BORDER_COLOR),
                 height=50,
                 # few UI properties for the text-fields hard@
-                border_color=ft.colors.PRIMARY,
+                border_color=BORDER_COLOR,
                 border_width=1,
                 cursor_width=0.5,
-                cursor_color=ft.colors.WHITE10,
-                color=ft.colors.WHITE,
+                cursor_color=ft.colors.BLACK,
+                color=BORDER_COLOR,
                 text_size=13,
 
                 # bgcolor as per the theme
-                bgcolor=fm.Theme.bgcolor,
+                bgcolor=BG_COLOR,
                 password=password,
+                can_reveal_password=True,
                 on_focus=self.focus_shadow,
                 on_blur=self.blur_shadow,
                 on_change=self.set_loader_animation,
-                suffix=ft.Container(
-                    content=self.view_hide_text,
-                    on_click=self.view_hide_password,
-                ),
             ),
             animate=ft.Animation(300, ft.animation.AnimationCurve.EASE),
             shadow=None,
@@ -69,19 +64,7 @@ class CustomInputField(ft.UserControl):
 
         super().__init__()
 
-    def view_hide_password(self, e):
-        det = self.input_box.content.password
-        if det:
-            self.input_box.content.password = False
-            self.view_hide_text.value = "Hide"
-        else:
-            self.view_hide_text.value = "View"
-            self.input_box.content.password = True
-        self.update()
-
     async def set_ok(self):
-        self.view_hide_text.value = ""
-
         self.loader.value = 0
         self.loader.update()
 
@@ -115,12 +98,12 @@ class CustomInputField(ft.UserControl):
     def focus_shadow(self, e):
         """Focus shadow when focusing"""
         self.error.visible = False
-        self.input_box.content.border_color = ft.colors.WHITE
-        self.input_box.border_color = PRIMARY
+        self.input_box.content.border_color = BORDER_COLOR
+        self.input_box.border_color = BORDER_COLOR
         self.input_box.shadow = ft.BoxShadow(
             spread_radius=6,
             blur_radius=8,
-            color=ft.colors.with_opacity(0.25, ft.colors.BLACK),
+            color=ft.colors.with_opacity(0.25, BORDER_COLOR),
             offset=ft.Offset(4, 4)
         )
         self.update()
@@ -129,7 +112,7 @@ class CustomInputField(ft.UserControl):
     def blur_shadow(self, e):
         """ Blur when the textfield loses focus"""
         self.input_box.shadow = None
-        self.input_box.content.border_color = ft.colors.WHITE
+        self.input_box.content.border_color = BORDER_COLOR
         self.update()
         self.set_loader_animation(e=None)
 
@@ -137,7 +120,7 @@ class CustomInputField(ft.UserControl):
         return ft.Column(
             spacing=5,
             controls=[
-                ft.Text(title, size=11, weight=ft.FontWeight.BOLD, color=ft.colors.WHITE),
+                ft.Text(title, size=11, weight=ft.FontWeight.BOLD, color=BORDER_COLOR),
                 ft.Stack(
                     controls=[
                         self.input_box,
