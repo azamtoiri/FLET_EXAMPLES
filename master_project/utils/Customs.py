@@ -2,9 +2,12 @@ import flet as ft
 import flet_material as fm
 import asyncio
 
-PRIMARY = ft.colors.SURFACE_VARIANT
+from typing import Optional
+
+PRIMARY = ft.colors.PRIMARY
 BORDER_COLOR = ft.colors.GREY
 BG_COLOR = ft.colors.WHITE
+
 
 class CustomInputField(ft.UserControl):
     def __init__(self, password: bool, title: str):
