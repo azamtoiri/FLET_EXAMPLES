@@ -1,11 +1,14 @@
+from typing import Optional
+
 import flet as ft
 
-from master_project.utils.Customs import CustomInputField
+from .Customs import CustomInputField
 
 
 class SignInForm(ft.UserControl):
-    def __init__(self, logo_path: str):
+    def __init__(self, logo_path: str, page: ft.Page, title: Optional[ft.Page.title] = None):
         super().__init__()
+        page.title = title
 
         self.email = CustomInputField(False, "Email")
         self.password = CustomInputField(True, "Password")
@@ -36,7 +39,7 @@ class SignInForm(ft.UserControl):
             ),
             width=150,
             height=45,
-            on_click=lambda e: print(e),
+            on_click=lambda _: page.go('/register'),
         )
 
     def build(self):
@@ -82,3 +85,5 @@ class SignInForm(ft.UserControl):
                 ],
             ),
         )
+
+# TODO: page routing
