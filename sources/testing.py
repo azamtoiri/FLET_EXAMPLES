@@ -1,4 +1,3 @@
-import flet
 import flet as ft
 
 
@@ -22,8 +21,8 @@ def main(page: ft.Page):
                 "/",
                 controls=[
                     ft.AppBar(title=ft.Text("Flet App")),
-                    ft.ElevatedButton("Got to settings", on_click=open_settings),
-                    ft.ElevatedButton("Go to mail settings", on_click=open_main_settings),
+                    ft.ElevatedButton("Got to settings", on_click=lambda _: page.go('/settings')),
+                    ft.ElevatedButton("Go to mail settings", on_click=lambda _: page.go('/settings/mail')),
                 ]
             )
         )
@@ -41,7 +40,9 @@ def main(page: ft.Page):
         if page.route == "/settings/mail":
             page.views.append(
                 ft.View(
-                    "/settings/mail",
+                    vertical_alignment=ft.MainAxisAlignment.CENTER,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    route="/settings/mail",
                     controls=[
                         ft.AppBar(
                             title=ft.Text("Mail settings"), bgcolor=ft.colors.SURFACE_VARIANT,
@@ -62,7 +63,6 @@ def main(page: ft.Page):
     page.on_route_change = route_change
     page.on_view_pop = view_pop
 
-
     side_bar = ft.Row(
         controls=[
             ft.Column(
@@ -79,6 +79,7 @@ def main(page: ft.Page):
     # page.add(side_bar)
     # page.update()
     page.go(page.route)
+    page.update()
 
 
 if __name__ == '__main__':

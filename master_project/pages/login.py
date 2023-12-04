@@ -2,19 +2,19 @@ from typing import Optional
 
 import flet as ft
 
-from .Customs import CustomInputField
+from utils import CustomInputField
 
 
-class SignInForm(ft.UserControl):
-    def __init__(self, logo_path: str, page: ft.Page, title: Optional[ft.Page.title] = None):
+class Login(ft.UserControl):
+    def __init__(self, page: ft.Page):
         super().__init__()
-        page.title = title
+        self.page = page
 
         self.email = CustomInputField(False, "Email")
         self.password = CustomInputField(True, "Password")
 
         self.logo = ft.Image(
-            src=logo_path,
+            src='../assets/Fox_Hub_logo.png',
             width=50,
             height=50,
         )
@@ -39,7 +39,7 @@ class SignInForm(ft.UserControl):
             ),
             width=150,
             height=45,
-            on_click=lambda _: page.go('/register'),
+            # on_click=lambda _: page.go('/register'),
         )
 
     def build(self):
