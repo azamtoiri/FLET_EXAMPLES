@@ -3,10 +3,11 @@ import flet as ft
 from utils import CustomInputField
 
 
-class Login(ft.UserControl):
+class Login(ft.Container):
     def __init__(self, page: ft.Page):
         super().__init__()
         self.page = page
+        self.page.expand = True
         self.page.title = "Вход"
         self.email = CustomInputField(False, "Email")
         self.password = CustomInputField(True, "Password")
@@ -39,9 +40,7 @@ class Login(ft.UserControl):
             height=45,
             on_click=lambda _: page.go('/signup'),
         )
-
-    def build(self):
-        return ft.Container(
+        self.content = ft.Container(
             width=450, height=650,
             # bgcolor=ft.colors.with_opacity(1, "white"),
             border_radius=10,
@@ -85,5 +84,3 @@ class Login(ft.UserControl):
                 ],
             ),
         )
-
-# TODO: page routing
