@@ -143,9 +143,13 @@ class CustomContainer(ft.Container):  # поставлены настройки 
         super().__init__()
         self.page = page
         self.expand = True
-        self.page.title = "Регистрация"
         self.page.window_height = 980
         self.page.window_width = 1820
         self.page.vertical_alignment = ft.CrossAxisAlignment.CENTER
         self.page.horizontal_alignment = ft.MainAxisAlignment.CENTER
         self.alignment = ft.alignment.center
+
+        self.page.fonts = {
+            "Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Bold.ttf",
+            "Open Sans": "/fonts/OpenSans-Regular.ttf"
+        }

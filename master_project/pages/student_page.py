@@ -1,6 +1,6 @@
 from flet import *
 
-from ..utils import CustomContainer
+from utils import CustomContainer
 
 
 class Student(CustomContainer):

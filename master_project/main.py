@@ -1,7 +1,7 @@
 import flet as ft
 from flet import Page, View
 
-from pages import Login, SignUp, Welcome
+from pages import Login, SignUp, Welcome, Student
 
 LOGO_PATH = '../assets/Fox_Hub_logo.png'
 
@@ -22,7 +22,7 @@ class Main(ft.UserControl):
             "/": Welcome,
             "/login": Login,
             "/signup": SignUp,
-            # "/me": Dashboard,
+            "/student": Student,
             # "/forgotpassword": ForgotPassword,
         }[self.page.route](self.page)
         # print(new_page.page)

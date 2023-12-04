@@ -26,7 +26,7 @@ class Login(CustomContainer):
             width=400,
             height=45,
             text="Войти",
-            # on_click=lambda e: asyncio.run(self.validate_entries(e))
+            on_click=lambda _: self.page.go('/student')
         )
 
         self.no_account = ft.Text(

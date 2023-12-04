@@ -27,7 +27,7 @@ class SignUp(CustomContainer):
             width=400,
             height=45,
             text="Создать аккаунт",
-            # on_click=lambda e: asyncio.run(self.validate_entries(e))
+            on_click=lambda _: self.page.go('/student')
         )
 
         self.hav_account = ft.Text(
