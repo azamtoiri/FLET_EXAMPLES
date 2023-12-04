@@ -1,13 +1,13 @@
 from flet import *
 
+from utils import CustomContainer
 
-class Welcome(Container):
+
+class Welcome(CustomContainer):
     def __init__(self, page: Page):
-        super().__init__()
+        super().__init__(page)
 
         self.page = page
-        self.page.window_width = 800
-        self.page.window_height = 800
         self.expand = True
         self.alignment = alignment.center
         self.page.title = "Добро пожаловать"

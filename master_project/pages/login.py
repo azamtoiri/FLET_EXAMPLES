@@ -1,14 +1,19 @@
 import flet as ft
 
-from utils import CustomInputField
+from utils import CustomInputField, CustomContainer
 
 
-class Login(ft.Container):
+class Login(CustomContainer):
     def __init__(self, page: ft.Page):
-        super().__init__()
-        self.page = page
+        super().__init__(page)
         self.page.expand = True
         self.page.title = "Вход"
+        self.page.window_height = 980
+        self.page.window_width = 1820
+        self.page.vertical_alignment = ft.CrossAxisAlignment.CENTER
+        self.page.horizontal_alignment = ft.MainAxisAlignment.CENTER
+        self.alignment = ft.alignment.center
+
         self.email = CustomInputField(False, "Email")
         self.password = CustomInputField(True, "Password")
 
@@ -42,10 +47,9 @@ class Login(ft.Container):
         )
         self.content = ft.Container(
             width=450, height=650,
-            # bgcolor=ft.colors.with_opacity(1, "white"),
+            bgcolor=ft.colors.with_opacity(1, "white"),
             border_radius=10,
             padding=40,
-            alignment=ft.alignment.center,
             content=ft.Column(
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 # alignment=ft.alignment.center,

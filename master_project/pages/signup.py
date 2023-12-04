@@ -1,15 +1,13 @@
 import flet as ft
 
-from utils.customs import CustomInputField
+from utils import CustomInputField, CustomContainer
 
 
-class SignUp(ft.Container):
-    def __init__(self,page: ft.Page):
-        super().__init__()
+class SignUp(CustomContainer):
+    def __init__(self, page: ft.Page):
+        super().__init__(page)
+
         self.page = page
-        self.expand = True
-        self.page.title = "Регистрация"
-
         self.surname = CustomInputField(False, "Фамилия")
         self.name = CustomInputField(False, "Имя")
         self.second_name = CustomInputField(False, "Отчество")
@@ -19,6 +17,7 @@ class SignUp(ft.Container):
         self.password = CustomInputField(True, "Пароль")
         self.password2 = CustomInputField(True, "Пароль")
 
+        # region: Items
         self.logo = ft.Image(
             src='../assets/Fox_Hub_logo.png',
             width=50,
@@ -45,8 +44,10 @@ class SignUp(ft.Container):
             ),
             width=150,
             height=45,
-            on_click=lambda _: page.go('/login'),
+            on_click=lambda _: self.page.go('/login'),
         )
+        # endregion
+
         self.content = ft.Container(
             width=884, height=810,
             bgcolor=ft.colors.with_opacity(1, "white"),
