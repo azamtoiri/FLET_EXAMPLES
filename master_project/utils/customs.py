@@ -1,8 +1,7 @@
-import flet as ft
-import flet_material as fm
 import asyncio
 
-from typing import Optional
+import flet as ft
+import flet_material as fm
 
 PRIMARY = ft.colors.PRIMARY
 BORDER_COLOR = ft.colors.GREY
@@ -137,3 +136,16 @@ class CustomInputField(ft.UserControl):
 
     def build(self):
         return self.object
+
+
+class CustomContainer(ft.Container):  # поставлены настройки главного окна
+    def __init__(self, page: ft.Page):
+        super().__init__()
+        self.page = page
+        self.expand = True
+        self.page.title = "Регистрация"
+        self.page.window_height = 980
+        self.page.window_width = 1820
+        self.page.vertical_alignment = ft.CrossAxisAlignment.CENTER
+        self.page.horizontal_alignment = ft.MainAxisAlignment.CENTER
+        self.alignment = ft.alignment.center
