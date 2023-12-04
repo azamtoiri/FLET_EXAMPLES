@@ -191,5 +191,4 @@ if __name__ == '__main__':
     ft.app(target=Main, host="192.168.0.112", port=58735)
 
 # TODO:
-#  Fix page routing title
 #  Fix page navigation
