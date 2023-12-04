@@ -1,14 +1,13 @@
-from typing import Optional
-
 import flet as ft
 
 from utils.customs import CustomInputField
 
 
 class SignUp(ft.UserControl):
-    def __init__(self, logo_path: str):
+    def __init__(self,page: ft.Page):
         super().__init__()
-        # self.page = page
+        self.page = page
+        self.page.title = "Регистрация"
 
         self.surname = CustomInputField(False, "Фамилия")
         self.name = CustomInputField(False, "Имя")
@@ -20,7 +19,7 @@ class SignUp(ft.UserControl):
         self.password2 = CustomInputField(True, "Пароль")
 
         self.logo = ft.Image(
-            src=logo_path,
+            src='../assets/Fox_Hub_logo.png',
             width=50,
             height=50,
         )
@@ -45,7 +44,7 @@ class SignUp(ft.UserControl):
             ),
             width=150,
             height=45,
-            # on_click=lambda _: page.go('/login'),
+            on_click=lambda _: page.go('/login'),
         )
 
     def build(self):

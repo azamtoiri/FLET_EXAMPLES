@@ -1,5 +1,3 @@
-from typing import Optional
-
 import flet as ft
 
 from utils import CustomInputField
@@ -9,7 +7,7 @@ class Login(ft.UserControl):
     def __init__(self, page: ft.Page):
         super().__init__()
         self.page = page
-
+        self.page.title = "Вход"
         self.email = CustomInputField(False, "Email")
         self.password = CustomInputField(True, "Password")
 
@@ -39,17 +37,19 @@ class Login(ft.UserControl):
             ),
             width=150,
             height=45,
-            # on_click=lambda _: page.go('/register'),
+            on_click=lambda _: page.go('/signup'),
         )
 
     def build(self):
         return ft.Container(
             width=450, height=650,
-            bgcolor=ft.colors.with_opacity(1, "white"),
+            # bgcolor=ft.colors.with_opacity(1, "white"),
             border_radius=10,
             padding=40,
+            alignment=ft.alignment.center,
             content=ft.Column(
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                # alignment=ft.alignment.center,
                 controls=[
                     self.logo,
                     ft.Text(
