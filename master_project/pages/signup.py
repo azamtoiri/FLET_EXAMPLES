@@ -55,6 +55,7 @@ class SignUp(CustomContainer):
             padding=40,
             content=ft.Column(
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                spacing=5,
                 controls=[
                     self.logo,
                     ft.Text(
@@ -70,34 +71,44 @@ class SignUp(CustomContainer):
                         color=ft.colors.with_opacity(0.85, "Black")
 
                     ),
-                    ft.Row(
-                        vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                        alignment=ft.MainAxisAlignment.CENTER,
-                        # wrap=False,
-                        # scroll=ft.ScrollMode.AUTO,
-                        controls=[
-                            ft.Column(
-                                height=400,
-                                width=250,
-                                controls=[
-                                    self.surname,
-                                    self.name,
-                                    self.second_name,
-                                    self.group,
-                                ]
-                            ),
-                            ft.Column(
-                                height=400,
-                                width=250,
-                                controls=[
-                                    self.age,
-                                    self.email,
-                                    self.password,
-                                    self.password2,
-                                ]
-                            ),
-                        ]
+                    ft.Container(
+                      bgcolor='red',
+                      height=400,
+                      width=400,
                     ),
+                    # ft.Row(
+                    #     # expand=1,
+                    #     # height=400,
+                    #     # width=400,
+                    #     # vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                    #     # alignment=ft.MainAxisAlignment.CENTER,
+                    #     # wrap=False,
+                    #     # scroll=ft.ScrollMode.AUTO,
+                    #     controls=[
+                    #         self.name,
+                    #         ft.Column(
+                    #             # height=400,
+                    #             # width=250,
+                    #             controls=[
+                    #                 self.surname,
+                    #                 self.name,
+                    #                 self.second_name,
+                    #                 self.group,
+                    #             ]
+                    #         ),
+                    #         ft.Column(
+                    #             # height=400,
+                    #             # width=250,
+                    #             controls=[
+                    #                 self.age,
+                    #                 self.email,
+                    #                 self.password,
+                    #                 self.password2,
+                    #             ]
+                    #         ),
+                    #     ]
+                    # ),
+                    self.name,
                     self.submit_button,
                     ft.Row(
                         vertical_alignment=ft.CrossAxisAlignment.CENTER,
@@ -110,3 +121,4 @@ class SignUp(CustomContainer):
                 ],
             ),
         )
+# TODO: refactor fields
